@@ -4,7 +4,7 @@
 
 [第二章 对象及变量的并发访问](src/com/thread/concurrentAccess/README.md)
 
-第三章 线程间通信
+[第三章 线程间通信](src/com/thread/threadCommunicate/README.md)
 
 第四章 Lock的使用
 
