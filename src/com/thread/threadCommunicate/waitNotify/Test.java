@@ -24,4 +24,17 @@ public class Test {
      * begin notify() ThreadName = Thread-2 time = 1631095762093
      *   end notify() ThreadName = Thread-2 time = 1631095767095
      */
+
+
+    /**
+     * 替换wait()为sleep()就为同步效果，sleep()不释放锁
+     * begin wait() ThreadName = Thread-0
+     *  end wait() ThreadName = Thread-0
+     * begin notify() ThreadName = Thread-2 time = 1631149235969
+     *   end notify() ThreadName = Thread-2 time = 1631149240979
+     * begin notify() ThreadName = Thread-1 time = 1631149240979
+     *   end notify() ThreadName = Thread-1 time = 1631149245981
+     *
+     *
+     */
 }

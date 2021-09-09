@@ -7,7 +7,7 @@
 - 方法join的使用
 - ThreadLocal类的使用
 
-
+### 等待/通知机制
 
 #### wait/nofify使用
 
@@ -63,4 +63,102 @@ wait/notify 调用后，锁的释放情况：
 - 使用wait时切忌要使用在while循环内 [示例](condition/Run.java)
 
 - wait被唤醒后，会继续往wait之后的代码执行，而不是重新从monitor同步块处执行
+
+注：wait()立即释放锁，notify()，notifyAll()线程执行结束才释放锁，sleep()不释放锁。[示例](waitNotify/Test.java)
+
+
+
+#### 当interrupt方法遇到wait方法
+
+当线程呈wait()状态时，调用线程对象的interrupt()方法会出现InterruptedException异常。
+
+总结：
+
+- 执行完同步代码块就会释放对象的锁
+- 在执行同步代码块的过程中，遇到异常而导致线程终止，锁也会被释放。
+- 在执行同步代码块的过程中，执行了锁所属对象的wait()方法，这个线程会释放对象锁，而此线程对象会进入线程等待池中，等待被唤醒。
+
+#### notify()只随机唤起一个线程，notifyAll()唤醒所有线程
+
+方法wait(long)的使用
+
+带一个参数的wait(long)方法的功能是等待某一个
+
+#### 等待wait条件的变化
+
+在使用wait/notify模式时，还需要注意，也就是wait等待的条件发生了变化时，容易造成程序逻辑混乱。
+
+结论总结：
+
+1）使用wait时切忌要使用在while循环内。
+
+2）wait被唤醒后，会继续往wait之后的代码执行，而不是重新从monitor同步块处执行。[示例](condition/Run.java)
+
+注：使用while能在wait重新被唤醒时再次判断临界条件是否能满足，而用if的话，则唤醒之后就会继续往下执行，也就是说只会判断一次。
+
+#### 生产者/消费者模式
+
+一生产与一消费 [操作值](prodConsum/Run.java)  [操作栈](prodConsumStack/Run.java)
+
+多生产与多消费 [操作值](multiProdConsum/Run.java)，[操作栈](multiProdConsumStack/Run.java) 解决wait条件改变与假死
+
+#### 通过管道进行线程间通信
+
+字节流 PipedInputStream和PipedOutputStream
+
+字符流 PipedReader和PipedWriter
+
+等待/通知交叉备份 [示例](crossBackup/Run.java)
+
+### join使用
+
+方法join的作用是使所属的线程对象x正常执行run()方法中的任务，而使当前线程z进行无限期的阻塞，等待线程x销毁后再继续执行线程z后面的代码。
+
+join具有使线程排队运行的作用，有些类似同步的运行效果。join与synchronized的区别是：
+
+join在**内部使用wait()方法**进行等待，而synchronized关键字使用的是“对象监视器”原理作为同步。
+
+#### 方法join与异常
+
+#### 在join的过程中，如果当前线程对象被中断，则当前线程出现异常。
+
+ep：在B线程中调用A线程的join方法，然后中断B线程，B线程异常，A.join()的线程并未出现异常还继续运行。
+
+方法join(long)的使用
+
+方法join(long)与sleep(long)的区别
+
+方法join(long)的功能在内部是使用wait(long)方法来实现的，所以join(long)方法具有**释放锁**的特点。
+
+### 类ThreadLocal的使用
+
+类ThreadLocal主要解决的就是每个线程绑定自己的值，将ThreadLocal类作为可以存储每个线程的私有数据。[示例](threadLocal/isolate/Run.java)
+
+#### 线程变量的隔离性
+
+### 类InheritableThreadLocal的使用
+
+使用类InheritableThreadLocal可以在子线程中取得父线程继承下来的值。
+
+#### 值继承
+
+#### 值继承再修改
+
+
+
+表 Object常用方法摘要
+
+| 返回变量和类型     | 方法                            | 描述                                                         |
+| ------------------ | ------------------------------- | ------------------------------------------------------------ |
+| `protected Object` | `clone()`                       | Creates and returns a copy of this object.                   |
+| `boolean`          | `equals(Object obj)`            | Indicates whether some other object is "equal to" this one.  |
+| `protected void`   | `finalize()`                    | **Deprecated.**The finalization mechanism is inherently problematic. |
+| `Class<?>`         | `getClass()`                    | Returns the runtime class of this `Object`.                  |
+| `int`              | `hashCode()`                    | Returns a hash code value for the object.                    |
+| `void`             | `notify()`                      | Wakes up a single thread that is waiting on this object's monitor. |
+| `void`             | `notifyAll()`                   | Wakes up all threads that are waiting on this object's monitor. |
+| `String`           | `toString()`                    | Returns a string representation of the object.               |
+| `void`             | `wait()`                        | Causes the current thread to wait until it is awakened, typically by being *notified* or *interrupted*. |
+| `void`             | `wait(long timeout)`            | Causes the current thread to wait until it is awakened, typically by being *notified* or *interrupted*, or until a certain amount of real time has elapsed. |
+| `void`             | `wait(long timeout, int nanos)` | Causes the current thread to wait until it is awakened, typically by being *notified* or *interrupted*, or until a certain amount of real time has elapsed. |
 

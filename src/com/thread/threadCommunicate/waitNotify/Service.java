@@ -6,7 +6,9 @@ public class Service {
             synchronized (lock){
                 System.out.println("begin wait() ThreadName = "+
                         Thread.currentThread().getName());
-                lock.wait();
+//                lock.wait();
+                //将wait()修改为sleep()，就成了同步的效果，sleep()不释放锁
+                Thread.sleep(2000);
                 System.out.println(" end wait() ThreadName = "+
                         Thread.currentThread().getName());
             }
