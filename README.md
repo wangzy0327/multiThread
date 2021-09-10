@@ -6,7 +6,7 @@
 
 [第三章 线程间通信](src/com/thread/threadCommunicate/README.md)
 
-第四章 Lock的使用
+[第四章 Lock的使用](src/com/thread/lock/README.md)
 
 第五章 定时器Timer
 
