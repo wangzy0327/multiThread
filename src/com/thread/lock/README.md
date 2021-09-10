@@ -40,4 +40,54 @@ Object类中的notifyAll()方法相当于Condition类中的signalAll()方法
 
 #### 公平锁与非公平锁
 
-锁Lock分为“公平锁”和“非公平锁”，公平锁表示线程获取锁的顺序是按照线程加锁的顺序（加锁线程的可运行状态创建顺序）来分配的，即先来先得的FIFO先进先出顺序。而非公平锁就是一种获取锁的抢占机制，是随机获得锁的，和公平锁不一样的就是先来的不一定先得到锁，这个方式可能造成某些线程一直拿不到锁，结果也就是不公平的了。
+锁Lock分为“公平锁”和“非公平锁”，公平锁表示线程获取锁的顺序是按照线程加锁的顺序（加锁线程的可运行状态创建顺序）来分配的，即先来先得的FIFO先进先出顺序。而非公平锁就是一种获取锁的抢占机制，是随机获得锁的，和公平锁不一样的就是先来的不一定先得到锁，这个方式可能造成某些线程一直拿不到锁，结果也就是不公平的了。示例
+
+#### Lock常用方法
+
+**方法getHoldCount()、getQueueLength()、getWaitQueueLength()**
+
+方法int getHoldCount()的作用是查询当前线程保持此锁定的个数，也就是调用lock()方法的次数。
+
+方法int getQueueLength()的作用是返回正等待获取此锁定的线程数。比如有5个线程都获取同一把锁，1个线程首先执行await()方法，那么在调用getQueueLength()方法后返回值是4，说明有4个线程同时在等待lock的释放。
+
+方法 int getWaitQueueLength(Condition condition) 的作用是 返回等待与此锁定相关的给定条件Condition的线程数，比如有5个线程，每个线程都执行了同一个condition对象的await()方法，则调用getWaitQueueLength(Condition condition)方法时返回的int值是5.
+
+**方法hasQueuedThread()、hasQueueThreads()、hasWaiters()**
+
+方法boolean hasQueuedThread(Thread thread)的作用是查询指定的线程是否正在等待获取此锁定。
+
+方法boolean hasQueuedThreads()的作用是查询是否有线程正在等待获取此锁定。
+
+方法boolean hasWaiters(Condition condition)的作用是查询是否有线程正在等待与此锁定有关的condition条件。
+
+**方法isFair()、isHeldByCurrentThread()、isLocked()**
+
+方法boolean isFair()的作用是判断是不是公平锁。
+
+方法boolean isHeldByCurrentThread()的作用是查询当前线程是否保持此锁定。
+
+方法boolean isLocked()的作用是查询此锁定是否由任意线程保持。
+
+**方法lockInterruptibly()、tryLock()、tryLock(long timeout,TimeUnit unit)**
+
+方法void lockInterruptibly()的作用是：如果当前线程未被中断，则获取锁定，如果已经被中断则出现异常。
+
+方法boolean tryLock()的作用是：仅在调用时锁定未被另一个线程保持的情况下，才获取该锁定。
+
+方法boolean tryLock(long timeout,TimeUnit unit)的作用是，如果锁定在给定等待时间内没有被另一个线程保持，且当前线程未被中断，则获取该锁定。
+
+**方法awaitUninterruptibly()、awaitUntil(Calendar calendar)**
+
+方法awaitUninterruptibly()的作用是：在await时，遇到中断异常继续正常运行
+
+方法awaitUntil(Calendar calendar)的作用是：在指定时间到达后自动唤醒自己，也可在等待时间到达前被其他线程提前唤醒。
+
+**使用Condition实现顺序执行**
+
+示例
+
+#### ReentrantReadWriteLock类
+
+类ReentrantLock具有完全互斥排他的效果，即同一时间只有一个线程在执行ReentrantLock.lock()方法后面的任务。读写锁ReentrantReadWriteLock类，使用可以加快效率，在某些不需要操作实例变量的方法中，可以采用来提升代码运行速度。
+
+读写锁也有两个锁，一个是读操作相关的锁，也成共享锁；另一个是写操作相关的锁，也叫排他锁。多个读锁不互斥，读写互斥，写写互斥。
