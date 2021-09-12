@@ -8,7 +8,7 @@
 
 [第四章 Lock的使用](src/com/thread/lock/README.md)
 
-第五章 定时器Timer
+[第五章 定时器Timer](src/com/thread/timer/README.md)
 
 第六章 单例模式与多线程
 
