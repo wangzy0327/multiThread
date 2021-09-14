@@ -16,11 +16,11 @@
 
 ### 使用静态内置类实现单例模式
 
-示例
+[示例](staticInnerClass/MyObject.java)
 
 ### 序列化与反序列化的单例模式
 
-示例
+[示例](seriallize/MyObject.java)
 
 ### 使用static代码块实现单例模式
 
