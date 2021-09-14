@@ -24,11 +24,13 @@
 
 ### 使用static代码块实现单例模式
 
-示例
+[示例](staticCodeBlock/MyObject.java)
 
 ### 使用enum枚举数据类型实现单例模式
 
-示例
+在使用枚举类时，构造方法会被自动调用，也可以应用其这个特性实现单例模式
+
+[示例](enumSingleton/MyObject.java)
 
 ### 完善使用enum枚举类实现单例模式
 

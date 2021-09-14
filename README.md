@@ -12,4 +12,4 @@
 
 [第六章 单例模式与多线程](src/com/thread/multiThreadSingleton/README.md)
 
-第七章 拾遗增补
+[第七章 拾遗增补](src/com/thread/others/README.md)
