@@ -38,6 +38,7 @@ public class Run {
 //        System.out.println("线程组数： "+Thread.currentThread().getThreadGroup().activeGroupCount());
 //        System.out.println("线程数组个数："+threadArray.length);
 //        Thread.currentThread().getThreadGroup().enumerate(threadArray);
+
 //        for(int i = 0;i < threadArray.length;i++){
 //            System.out.println(threadArray[i].getName()+" "
 //                                + threadArray[i].getState());
