@@ -19,7 +19,7 @@ public class Run3 {
             thread.start();
             Thread.sleep(1000);
             thread.interrupt();
-            System.out.println("是否停止 1 ？ = "+thread.isInterrupted());
+            System.out.println("是否停止 1 ？ = "+thread.interrupted());
             System.out.println("是否停止 2 ？ = "+thread.isInterrupted());
         } catch (InterruptedException e) {
             e.printStackTrace();
